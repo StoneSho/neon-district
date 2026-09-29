@@ -1,0 +1,8 @@
+{
+  "underground": { "name": "地下", "en": "Underground", "desc": "黑客与医疗", "neon": "#31e0c8", "base": "#0f2a33", "dark": "#0a1a20" },
+  "street":      { "name": "街头", "en": "Street", "desc": "餐饮与娱乐", "neon": "#ff9a3c", "base": "#3a2418", "dark": "#22150e" },
+  "gang":        { "name": "帮派", "en": "Gang", "desc": "武器与战斗", "neon": "#ff4d5e", "base": "#331419", "dark": "#1e0c10" },
+  "corporate":   { "name": "企业", "en": "Corporate", "desc": "科技与商业", "neon": "#7fb8ff", "base": "#16203a", "dark": "#0d1424" },
+  "neon":        { "name": "霓虹", "en": "Neon", "desc": "高端娱乐与住宅", "neon": "#c46bff", "base": "#2a1440", "dark": "#190c26" },
+  "deco":        { "name": "赛博植物", "en": "Decoration", "desc": "街区点缀", "neon": "#7dff9b", "base": "#15301c", "dark": "#0c1d11" }
+}

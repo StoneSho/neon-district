@@ -1,0 +1,8 @@
+[
+  { "id": "street_samurai", "name": "街头武士", "power": "combat", "bias": { "body": 10, "reflex": 10 }, "injury": 1.0, "reward": 1.0, "rep": 1.0, "color": "#ff5a6a" },
+  { "id": "solo", "name": "独狼", "power": "combat", "bias": { "body": 8, "cool": 6 }, "injury": 0.65, "reward": 1.0, "rep": 1.0, "color": "#ffb057" },
+  { "id": "netrunner", "name": "网络黑客", "power": "hack", "bias": { "intelligence": 10, "tech": 10 }, "injury": 1.0, "reward": 1.0, "rep": 1.0, "color": "#3ee0ff" },
+  { "id": "techie", "name": "技术专家", "power": "hack", "bias": { "tech": 10, "body": 4 }, "injury": 1.0, "reward": 1.0, "rep": 1.0, "color": "#7dffb0" },
+  { "id": "fixer", "name": "中间人", "power": "social", "bias": { "cool": 10, "intelligence": 6 }, "injury": 1.0, "reward": 1.15, "rep": 1.0, "color": "#d08bff" },
+  { "id": "media", "name": "媒体人", "power": "social", "bias": { "cool": 8, "intelligence": 8 }, "injury": 1.0, "reward": 1.0, "rep": 1.25, "color": "#ffd36a" }
+]

@@ -1,0 +1,145 @@
+[
+  {
+    "id": "courier_chip",
+    "name": "送一枚芯片过街",
+    "type": "快递",
+    "power": "any",
+    "need": 230,
+    "pay": 320,
+    "rep": 16,
+    "hours": 1,
+    "star": 1
+  },
+  {
+    "id": "clear_alley",
+    "name": "清理巷口混混",
+    "type": "清剿",
+    "power": "combat",
+    "need": 210,
+    "pay": 560,
+    "rep": 28,
+    "hours": 2,
+    "star": 1
+  },
+  {
+    "id": "heist_clinic",
+    "name": "窃取诊所名单",
+    "type": "劫持",
+    "power": "hack",
+    "need": 170,
+    "pay": 580,
+    "rep": 28,
+    "hours": 2,
+    "star": 1
+  },
+  {
+    "id": "extract_joy",
+    "name": "把线人带出酒吧",
+    "type": "提取",
+    "power": "social",
+    "need": 175,
+    "pay": 520,
+    "rep": 26,
+    "hours": 2,
+    "star": 1
+  },
+  {
+    "id": "sabotage_sign",
+    "name": "切断对手招牌",
+    "type": "破坏",
+    "power": "hack",
+    "need": 170,
+    "pay": 700,
+    "rep": 34,
+    "hours": 2,
+    "star": 1
+  },
+  {
+    "id": "convoy_escort",
+    "name": "护送一车货过边境",
+    "type": "护卫",
+    "power": "combat",
+    "need": 310,
+    "pay": 940,
+    "rep": 39,
+    "hours": 3,
+    "star": 2
+  },
+  {
+    "id": "corp_infiltrate",
+    "name": "潜入企业档案层",
+    "type": "劫持",
+    "power": "hack",
+    "need": 250,
+    "pay": 1020,
+    "rep": 42,
+    "hours": 3,
+    "star": 2
+  },
+  {
+    "id": "star_extract",
+    "name": "捞出被扣的歌手",
+    "type": "提取",
+    "power": "social",
+    "need": 330,
+    "pay": 940,
+    "rep": 39,
+    "hours": 3,
+    "star": 3
+  },
+  {
+    "id": "legend_run",
+    "name": "闯进来生的包厢",
+    "type": "传奇",
+    "power": "any",
+    "need": 425,
+    "pay": 1440,
+    "rep": 58,
+    "hours": 4,
+    "star": 3
+  },
+  {
+    "id": "corp_blackmail",
+    "name": "勒索企业高管",
+    "type": "社交",
+    "power": "social",
+    "need": 385,
+    "pay": 1610,
+    "rep": 59,
+    "hours": 4,
+    "star": 4
+  },
+  {
+    "id": "cargo_hijack",
+    "name": "劫下荒坂运输队",
+    "type": "劫持",
+    "power": "combat",
+    "need": 465,
+    "pay": 1800,
+    "rep": 65,
+    "hours": 5,
+    "star": 4
+  },
+  {
+    "id": "ghost_protocol",
+    "name": "抹掉黑网上的自己",
+    "type": "传奇",
+    "power": "hack",
+    "need": 415,
+    "pay": 1970,
+    "rep": 72,
+    "hours": 5,
+    "star": 5
+  },
+  {
+    "id": "tower_run",
+    "name": "爬上荒坂塔顶层",
+    "type": "传奇",
+    "power": "any",
+    "need": 560,
+    "pay": 2440,
+    "rep": 93,
+    "hours": 6,
+    "star": 5
+  }
+]

@@ -1,0 +1,42 @@
+[
+  {
+    "id": "berserk",
+    "name": "狂战士",
+    "kind": "smash",
+    "power": 320,
+    "pay": 1600,
+    "rep": 60
+  },
+  {
+    "id": "hacker",
+    "name": "夜之黑客",
+    "kind": "hack",
+    "power": 240,
+    "pay": 1200,
+    "rep": 48
+  },
+  {
+    "id": "stealth",
+    "name": "潜行者",
+    "kind": "stealth",
+    "power": 300,
+    "pay": 1500,
+    "rep": 55
+  },
+  {
+    "id": "swarm",
+    "name": "虫群",
+    "kind": "swarm",
+    "power": 260,
+    "pay": 1300,
+    "rep": 50
+  },
+  {
+    "id": "glitched",
+    "name": "故障体",
+    "kind": "glitch",
+    "power": 340,
+    "pay": 1800,
+    "rep": 65
+  }
+]
