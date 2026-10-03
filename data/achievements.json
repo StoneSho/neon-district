@@ -1,0 +1,22 @@
+{
+  "_comment": "成就表：check 由 Game._ach_value() 求值；奖励直接发钱与声望。改文案/数值只改这张表。",
+  "achievements": [
+    { "id": "first_money", "name": "第一桶金", "desc": "累计收入 €10,000", "check": "lifetime_income", "n": 10000, "money": 500, "rep": 20 },
+    { "id": "boom_town", "name": "商业街区", "desc": "建成 10 栋建筑", "check": "buildings", "n": 10, "money": 800, "rep": 30 },
+    { "id": "big_city", "name": "夜之城雏形", "desc": "建成 20 栋建筑", "check": "buildings", "n": 20, "money": 2000, "rep": 80 },
+    { "id": "combo_all", "name": "相性大师", "desc": "发现全部 5 组相性", "check": "combos", "n": 5, "money": 3000, "rep": 150 },
+    { "id": "boss_5", "name": "赛博克星", "desc": "讨伐 5 只赛博精神病", "check": "bosses", "n": 5, "money": 1500, "rep": 60 },
+    { "id": "legend_3", "name": "传奇收藏家", "desc": "建成 3 栋传奇建筑", "check": "legends", "n": 3, "money": 2500, "rep": 120 },
+    { "id": "pop_50", "name": "人潮涌动", "desc": "街区人口达到 50", "check": "residents", "n": 50, "money": 2000, "rep": 100 },
+    { "id": "star_10", "name": "来生之主", "desc": "升到 10 星", "check": "star", "n": 10, "money": 5000, "rep": 300 },
+    { "id": "research_all", "name": "研究先锋", "desc": "完成全部 4 条研究线", "check": "research", "n": 4, "money": 2000, "rep": 100 },
+    { "id": "cyber_5", "name": "义体改造", "desc": "累计安装 5 件义体", "check": "implants", "n": 5, "money": 800, "rep": 40 },
+    { "id": "gig_60", "name": "委托达人", "desc": "完成 60 条委托", "check": "gigs", "n": 60, "money": 3000, "rep": 150 },
+    { "id": "rich", "name": "富甲一方", "desc": "现金达到 €100,000", "check": "money", "n": 100000, "money": 0, "rep": 200 },
+    { "id": "maxed_10", "name": "满级街区", "desc": "10 栋设施升到满级", "check": "maxed", "n": 10, "money": 3000, "rep": 150 },
+    { "id": "mastery_16", "name": "全职业精通", "desc": "一名居民精通 16 个职业", "check": "mastery", "n": 16, "money": 4000, "rep": 200 },
+    { "id": "ruins_50", "name": "旧城改造", "desc": "清理 50 格废墟", "check": "ruins", "n": 50, "money": 1500, "rep": 60 },
+    { "id": "land_5", "name": "地产大亨", "desc": "征地扩张 5 次", "check": "expansions", "n": 5, "money": 2000, "rep": 100 },
+    { "id": "land_12", "name": "城市建筑师", "desc": "征地扩张 12 次", "check": "expansions", "n": 12, "money": 5000, "rep": 250 }
+  ]
+}

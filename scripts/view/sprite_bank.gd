@@ -22,17 +22,20 @@ func _init() -> void:
 				any = true
 		if any:
 			buildings[fid] = rots
-	for job in _job_ids():
-		var idle := _tex("res://assets/characters/%s/idle.png" % job)
+	# 职业按 sprite 字段回退到现有行走图（新职业先复用旧动画，用 color 区分）。
+	for job: Dictionary in ConfigDB.job_list:
+		var jid := String(job["id"])
+		var folder := String(job.get("sprite", jid))
+		var idle := _tex("res://assets/characters/%s/idle.png" % folder)
 		if idle != null:
-			idles[job] = idle
+			idles[jid] = idle
 		var frames: Array[Texture2D] = []
 		for i in 4:
-			var frame := _tex("res://assets/characters/%s/walk_%d.png" % [job, i])
+			var frame := _tex("res://assets/characters/%s/walk_%d.png" % [folder, i])
 			if frame != null:
 				frames.append(frame)
 		if frames.size() == 4:
-			walks[job] = frames
+			walks[jid] = frames
 	for boss_id in _boss_ids():
 		var tex := _tex("res://assets/bosses/%s.png" % boss_id)
 		if tex != null:
@@ -44,12 +47,6 @@ func _building_ids() -> PackedStringArray:
 	for f: Dictionary in ConfigDB.facility_list:
 		if bool(f.get("implemented", false)):
 			out.append(String(f["id"]))
-	return out
-
-func _job_ids() -> PackedStringArray:
-	var out := PackedStringArray()
-	for j: Dictionary in ConfigDB.job_list:
-		out.append(String(j["id"]))
 	return out
 
 func _boss_ids() -> PackedStringArray:

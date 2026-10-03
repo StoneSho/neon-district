@@ -9,9 +9,10 @@ var _root: VBoxContainer
 var _timer: ProgressBar
 
 func _ready() -> void:
-	var sc := ScrollContainer.new()
+	clip_contents = true
+	mouse_filter = Control.MOUSE_FILTER_STOP
+	var sc := UIStyle.fill_scroll()
 	sc.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	sc.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	add_child(sc)
 	_root = UIStyle.vbox(10)
 	_root.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -40,18 +41,57 @@ func _rebuild() -> void:
 	for c in _root.get_children():
 		c.queue_free()
 	if Game.boss.is_empty():
-		var box := UIStyle.vbox(6)
-		box.alignment = BoxContainer.ALIGNMENT_CENTER
+		var box := UIStyle.vbox(8)
 		_root.add_child(box)
 		var t := UIStyle.label(16, UIStyle.INK)
 		t.text = "街区平静"
-		t.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		box.add_child(t)
 		var s := UIStyle.label(12, UIStyle.MUTED)
-		s.text = "赛博精神病会在傍晚或夜里出现"
-		s.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		s.text = "赛博精神病会在傍晚或夜里出现，提前把人练起来"
 		s.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		box.add_child(s)
+		# 战绩统计（原来这一页只有两行字，大片留白）。
+		var injured := 0
+		for r in Game.residents:
+			if r.injured(Game.tick):
+				injured += 1
+		var hurt := 0
+		for b in Game.buildings:
+			if bool(b.get("damaged", false)):
+				hurt += 1
+		var chips := UIStyle.hbox(6)
+		chips.add_child(UIStyle.chip("已讨伐 %d" % int(Game.bosses_killed), UIStyle.GOLD))
+		chips.add_child(UIStyle.chip("伤员 %d" % injured, UIStyle.DANGER if injured > 0 else UIStyle.DIM))
+		chips.add_child(UIStyle.chip("受损建筑 %d" % hurt, UIStyle.DANGER if hurt > 0 else UIStyle.DIM))
+		box.add_child(chips)
+		if not Game.boss_kinds_killed.is_empty():
+			var met := UIStyle.hbox(6)
+			for k in Game.boss_kinds_killed.keys():
+				met.add_child(UIStyle.chip("遇过 · " + _kind_label(String(k)), Color(0.75, 0.8, 0.95)))
+			box.add_child(met)
+		# 待战名单：按战斗战力排名，谁该上阵一眼看出。
+		var key := "combat"
+		var list: Array = Game.residents.duplicate()
+		list.sort_custom(func(a, b) -> bool: return Game.battle_power(a, key) > Game.battle_power(b, key))
+		var rank_title := UIStyle.label(12, UIStyle.MUTED)
+		var total := 0
+		for r in list:
+			total += Game.battle_power(r, key)
+		var top := 0
+		for i in mini(Game.MAX_SQUAD, list.size()):
+			top += Game.battle_power(list[i], key)
+		rank_title.text = "待战名单 · 全队合计 %d · 最强 %d 人 %d" % [total, mini(Game.MAX_SQUAD, list.size()), top]
+		box.add_child(rank_title)
+		var rank := 1
+		for r in list:
+			if rank > 5:
+				break
+			box.add_child(_rank_row(r, key, rank))
+			rank += 1
+		var foot := UIStyle.label(11, UIStyle.DIM)
+		foot.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		foot.text = "威胁出现时，这里会显示倒计时、出战人选与胜算。"
+		box.add_child(foot)
 		return
 	var accent := UIStyle.DANGER
 	var card := PanelContainer.new()
@@ -145,8 +185,31 @@ func _face(r, key: String, need: int) -> Button:
 	b.pressed.connect(func() -> void: host.toggle_boss_pick(rid))
 	return b
 
-func _kind_name() -> String:
-	match String(Game.boss.get("kind", "")):
+## 待战名单一行：名次 · 姓名 · 职业 · 战力 · 状态。
+func _rank_row(r, key: String, rank: int) -> Control:
+	var row := UIStyle.hbox(8)
+	var n := UIStyle.label(12, UIStyle.GOLD if rank == 1 else UIStyle.MUTED)
+	n.text = "%d" % rank
+	n.custom_minimum_size = Vector2(16, 0)
+	row.add_child(n)
+	var nm := UIStyle.label(12, UIStyle.INK)
+	nm.text = "%s · %s" % [String(r.rname), String(r.job_name)]
+	nm.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	nm.clip_text = true
+	row.add_child(nm)
+	var pw := UIStyle.label(12, Color(0.8, 0.9, 1.0))
+	pw.text = "%d" % Game.battle_power(r, key)
+	row.add_child(pw)
+	if r.state == Resident.State.AWAY:
+		row.add_child(UIStyle.chip("外出", UIStyle.DIM))
+	elif r.injured(Game.tick):
+		row.add_child(UIStyle.chip("受伤", UIStyle.DANGER))
+	else:
+		row.add_child(UIStyle.chip("在岗", Color(0.62, 0.9, 0.72)))
+	return row
+
+func _kind_label(kind: String) -> String:
+	match kind:
 		"hack":
 			return "黑客"
 		"stealth":
@@ -157,6 +220,9 @@ func _kind_name() -> String:
 			return "故障"
 		_:
 			return "砸店"
+
+func _kind_name() -> String:
+	return _kind_label(String(Game.boss.get("kind", "")))
 
 func _counter() -> String:
 	match String(Game.boss.get("kind", "")):

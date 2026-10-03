@@ -15,3 +15,7 @@ signal boss_changed
 signal star_up(star: int, title: String)
 signal return_to_menu
 signal intro_boss(boss_name: String, hours: int, power: int)
+signal news_paper(title: String, body: String)
+signal cycle_ready
+signal goal_changed
+signal achievement_unlocked(id: String, title: String, desc: String, money: int, rep: int)

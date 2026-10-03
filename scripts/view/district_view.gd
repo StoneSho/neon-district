@@ -11,6 +11,8 @@ var camera: Camera2D
 var build_mode: String = ""
 var build_rot: int = 0
 var demolish := false
+var road_mode := false
+var clear_mode := false
 var selected_bid: int = -1
 var selected_rid: int = -1
 var hover := Vector2i(-1000, -1000)
@@ -101,8 +103,8 @@ func _draw() -> void:
 func _draw_ground() -> void:
 	# 常态画面只保留连续地坪；结构网格进入建造模式后再出现，避免网格和贴图底座互相暴露透视差。
 	var island := PackedVector2Array([
-		corner(0.0, 0.0), corner(float(Game.GW), 0.0),
-		corner(float(Game.GW), float(Game.GH)), corner(0.0, float(Game.GH)),
+		corner(0.0, 0.0), corner(float(Game.unlocked_w), 0.0),
+		corner(float(Game.unlocked_w), float(Game.unlocked_h)), corner(0.0, float(Game.unlocked_h)),
 	])
 	draw_colored_polygon(island, Color("#0d1026"))
 	var center := (island[0] + island[2]) * 0.5
@@ -115,15 +117,36 @@ func _draw_ground() -> void:
 	var rim := PackedVector2Array([island[0], island[1], island[2], island[3], island[0]])
 	draw_polyline(rim, Color(0.12, 0.38, 0.72, 0.20), 9.0, true)
 	draw_polyline(rim, Color(0.28, 0.78, 1.0, 0.72), 1.8, true)
+	# 废墟与道路（阶段 9）：废墟暗红、不可建不可走；道路泛蓝、加速行走。
+	for c in Game.ruins.keys():
+		var rc: Vector2i = c
+		draw_colored_polygon(cell_diamond(rc), Color(0.26, 0.10, 0.12, 0.92))
+	for c in Game.roads.keys():
+		var rd: Vector2i = c
+		draw_colored_polygon(cell_diamond(rd), Color(0.22, 0.30, 0.52, 0.85))
 	if build_mode != "":
-		for x in Game.GW + 1:
+		for x in Game.unlocked_w + 1:
 			var major := x % 4 == 0
-			draw_line(corner(float(x), 0.0), corner(float(x), float(Game.GH)),
+			draw_line(corner(float(x), 0.0), corner(float(x), float(Game.unlocked_h)),
 				Color(0.30, 0.58, 0.95, 0.30 if major else 0.13), 1.4 if major else 1.0, true)
-		for y in Game.GH + 1:
+		for y in Game.unlocked_h + 1:
 			var major := y % 4 == 0
-			draw_line(corner(0.0, float(y)), corner(float(Game.GW), float(y)),
+			draw_line(corner(0.0, float(y)), corner(float(Game.unlocked_w), float(y)),
 				Color(0.30, 0.58, 0.95, 0.30 if major else 0.13), 1.4 if major else 1.0, true)
+	# 扩张提示（阶段 D）：把"还能征的地"用金色斜纹条带标出来，让玩家看得见扩张目标。
+	var pend: Vector2i = Game.pending_land()
+	if pend.x > 0:
+		for y in Game.unlocked_h:
+			var c3 := Vector2i(Game.unlocked_w, y)
+			draw_colored_polygon(cell_diamond(c3), Color(1.0, 0.85, 0.35, 0.28))
+		draw_line(corner(float(Game.unlocked_w), 0.0), corner(float(Game.unlocked_w), float(Game.unlocked_h)),
+			Color(1.0, 0.9, 0.4, 0.8), 2.6, true)
+	if pend.y > 0:
+		for x in Game.unlocked_w:
+			var c4 := Vector2i(x, Game.unlocked_h)
+			draw_colored_polygon(cell_diamond(c4), Color(1.0, 0.85, 0.35, 0.28))
+		draw_line(corner(0.0, float(Game.unlocked_h)), corner(float(Game.unlocked_w), float(Game.unlocked_h)),
+			Color(1.0, 0.9, 0.4, 0.8), 2.6, true)
 	for i in Game.buildings.size():
 		var tier: Dictionary = Game.region_tier_for(i)
 		if int(tier["count"]) < 3:
@@ -239,6 +262,9 @@ func _draw_resident(r) -> void:
 	if tex == null:
 		_shadow(foot, 8.0)
 		draw_circle(foot + Vector2(0, -10), 7.0, r.color if not r.injured(Game.tick) else Color(1, 0.4, 0.4))
+		var comp0 := Game.complaint_text(int(r.id))
+		if comp0 != "":
+			_outlined(foot + Vector2(0, -24), comp0, 11, Color(1.0, 0.78, 0.4), 90.0)
 		return
 	_shadow(foot, 9.0)
 	var rect := _draw_bottom(tex, foot, 0.0, 46.0, flip, mod)
@@ -248,6 +274,10 @@ func _draw_resident(r) -> void:
 		draw_circle(Vector2(rect.position.x + rect.size.x * 0.5, rect.position.y - 2), 3.0, Color(1.0, 0.35, 0.35, pulse))
 	if int(r.id) == selected_rid:
 		_outlined(Vector2(rect.position.x + rect.size.x * 0.5 - 40, rect.position.y - 16), String(r.rname), 13, Color(1.0, 0.95, 0.7), 80.0)
+	# 意见气泡（阶段 12）：需求低或缺设施时头顶显示短句。
+	var comp := Game.complaint_text(int(r.id))
+	if comp != "":
+		_outlined(Vector2(rect.position.x + rect.size.x * 0.5, rect.position.y - 26), comp, 11, Color(1.0, 0.78, 0.4), 90.0)
 
 func _draw_boss() -> void:
 	if Game.boss.is_empty():
@@ -304,16 +334,30 @@ func _draw_hover() -> void:
 			var d := footprint(Game.buildings[idx])
 			draw_polyline(PackedVector2Array([d[0], d[1], d[2], d[3], d[0]]), Color(1.0, 0.35, 0.4, 0.9), 3.0, true)
 		return
+	if road_mode:
+		if hover.x >= 0 and hover.y >= 0 and Game.in_bounds(hover.x, hover.y):
+			var ok: bool = Game.can_build_road(hover)
+			var col := Color(0.35, 1.0, 0.6, 0.6) if ok else Color(1.0, 0.35, 0.4, 0.6)
+			draw_polyline(cell_diamond(hover) + PackedVector2Array([cell_diamond(hover)[0]]), col, 2.5, true)
+			draw_colored_polygon(cell_diamond(hover), Color(col.r, col.g, col.b, 0.25))
+		return
+	if clear_mode:
+		if Game.is_ruin(hover):
+			var ok: bool = Game.can_clear_ruin(hover)
+			var col := Color(0.35, 1.0, 0.6, 0.6) if ok else Color(1.0, 0.35, 0.4, 0.6)
+			draw_polyline(cell_diamond(hover) + PackedVector2Array([cell_diamond(hover)[0]]), col, 2.5, true)
+			draw_colored_polygon(cell_diamond(hover), Color(col.r, col.g, col.b, 0.25))
+		return
 	if build_mode == "" or hover.x < 0 or hover.y < 0:
 		return
-	if hover.x >= Game.GW or hover.y >= Game.GH:
+	if hover.x >= Game.unlocked_w or hover.y >= Game.unlocked_h:
 		return
 	var f: Dictionary = ConfigDB.get_facility(build_mode)
 	if f.is_empty():
 		return
 	var s := int(f["size"])
-	var gx := clampi(hover.x, 0, Game.GW - s)
-	var gy := clampi(hover.y, 0, Game.GH - s)
+	var gx := clampi(hover.x, 0, Game.unlocked_w - s)
+	var gy := clampi(hover.y, 0, Game.unlocked_h - s)
 	var ok: bool = Game.can_build(build_mode, gx, gy)
 	var col := Color(0.35, 1.0, 0.6, 0.55) if ok else Color(1.0, 0.35, 0.4, 0.55)
 	var d := footprint({ "gx": gx, "gy": gy, "size": s })
@@ -371,8 +415,8 @@ func _pan_camera(delta: float) -> void:
 	_clamp_camera()
 
 func _clamp_camera() -> void:
-	var min_c := corner(0.0, float(Game.GH))
-	var max_c := corner(float(Game.GW), 0.0)
+	var min_c := corner(0.0, float(Game.unlocked_h))
+	var max_c := corner(float(Game.unlocked_w), 0.0)
 	var pad := 220.0
 	camera.position.x = clampf(camera.position.x, min_c.x - pad, max_c.x + pad)
 	camera.position.y = clampf(camera.position.y, min_c.y - pad, max_c.y + pad + BUILD_H)
@@ -412,6 +456,8 @@ func _unhandled_input(event: InputEvent) -> void:
 			KEY_ESCAPE:
 				build_mode = ""
 				demolish = false
+				road_mode = false
+				clear_mode = false
 				selected_bid = -1
 				selected_rid = -1
 				EventBus.notice.emit("已取消")
@@ -433,6 +479,18 @@ func rotate_build() -> void:
 
 func _click() -> void:
 	var c := cell_at_world(get_global_mouse_position())
+	if road_mode:
+		if Game.build_road(c):
+			EventBus.notice.emit("铺了一段路 · €%d" % Game.ROAD_COST)
+		else:
+			EventBus.notice.emit("这里铺不了路")
+		return
+	if clear_mode:
+		if Game.clear_ruin(c):
+			EventBus.notice.emit("废墟清理完毕 · €%d" % Game.RUIN_CLEAR_COST)
+		else:
+			EventBus.notice.emit("这里没有可清理的废墟")
+		return
 	if demolish:
 		var di := Game.bid_at(c)
 		if di >= 0:
@@ -447,8 +505,8 @@ func _click() -> void:
 		if f.is_empty():
 			return
 		var s := int(f["size"])
-		var gx := clampi(c.x, 0, Game.GW - s)
-		var gy := clampi(c.y, 0, Game.GH - s)
+		var gx := clampi(c.x, 0, Game.unlocked_w - s)
+		var gy := clampi(c.y, 0, Game.unlocked_h - s)
 		if Game.build(build_mode, gx, gy, build_rot):
 			EventBus.notice.emit("建成「%s」· 朝向 %d/4" % [String(f["name"]), build_rot + 1])
 			_check_region_banner(gx, gy)

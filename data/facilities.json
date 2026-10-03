@@ -12,7 +12,7 @@
     "star": 1,
     "tag": "medic",
     "satisfy": {
-      "health": 1.0
+      "health": 1
     },
     "desc": "治疗受伤居民"
   },
@@ -75,7 +75,8 @@
     "star": 3,
     "tag": "transit",
     "satisfy": {},
-    "desc": "加快居民通行"
+    "desc": "加快居民通行",
+    "implemented": true
   },
   {
     "id": "neon_noodle",
@@ -90,7 +91,7 @@
     "star": 1,
     "tag": "food",
     "satisfy": {
-      "hunger": 1.0
+      "hunger": 1
     },
     "desc": "满足饥饿需求"
   },
@@ -172,7 +173,8 @@
     "star": 1,
     "tag": "shop",
     "satisfy": {},
-    "desc": "购买武器"
+    "desc": "购买武器",
+    "implemented": true
   },
   {
     "id": "fight_cage",
@@ -201,7 +203,8 @@
     "star": 3,
     "tag": "shop",
     "satisfy": {},
-    "desc": "稀有武器道具"
+    "desc": "稀有武器道具",
+    "implemented": true
   },
   {
     "id": "gang_safehouse",
@@ -230,7 +233,8 @@
     "star": 6,
     "tag": "shop",
     "satisfy": {},
-    "desc": "传奇武器交易"
+    "desc": "传奇武器交易",
+    "implemented": true
   },
   {
     "id": "data_broker",
@@ -259,7 +263,8 @@
     "star": 3,
     "tag": "business",
     "satisfy": {},
-    "desc": "高收入商业"
+    "desc": "高收入商业",
+    "implemented": true
   },
   {
     "id": "premium_clinic",
@@ -291,7 +296,7 @@
     "star": 5,
     "tag": "cyber",
     "satisfy": {
-      "cyberware": 1.0
+      "cyberware": 1
     },
     "desc": "满足义体需求"
   },
@@ -299,6 +304,7 @@
     "id": "research_lab",
     "name": "研究实验室",
     "en": "Research Lab",
+    "implemented": true,
     "theme": "corporate",
     "size": 2,
     "cost": 1500,
@@ -308,6 +314,21 @@
     "tag": "tech",
     "satisfy": {},
     "desc": "解锁新设施科技"
+  },
+  {
+    "id": "hack_bench",
+    "name": "黑客工作台",
+    "en": "Hacker Workbench",
+    "implemented": true,
+    "theme": "underground",
+    "size": 2,
+    "cost": 700,
+    "income": 10,
+    "max_level": 3,
+    "star": 2,
+    "tag": "tech",
+    "satisfy": {},
+    "desc": "赛博垃圾换知识点，再兑换武器义体强化剂（贴图待补）"
   },
   {
     "id": "neon_dance_club",
@@ -339,7 +360,7 @@
     "star": 3,
     "tag": "fun",
     "satisfy": {
-      "fun": 1.0
+      "fun": 1
     },
     "desc": "满足娱乐需求"
   },
@@ -372,7 +393,8 @@
     "satisfy": {
       "fun": 1.5
     },
-    "desc": "极高收入高风险"
+    "desc": "极高收入高风险",
+    "implemented": true
   },
   {
     "id": "neon_mushroom",
@@ -431,7 +453,8 @@
     "star": 2,
     "tag": "deco",
     "satisfy": {},
-    "desc": "周边黑客设施效率 +5%"
+    "desc": "周边黑客设施效率 +5%",
+    "implemented": true
   },
   {
     "id": "mox_hideout",
@@ -446,7 +469,8 @@
     "tag": "legendary",
     "legendary": true,
     "satisfy": {},
-    "desc": "居民满意度永不降低"
+    "desc": "居民满意度永不降低",
+    "implemented": true
   },
   {
     "id": "trauma_team_hq",
@@ -461,7 +485,8 @@
     "tag": "legendary",
     "legendary": true,
     "satisfy": {},
-    "desc": "居民受伤自动治疗"
+    "desc": "居民受伤自动治疗",
+    "implemented": true
   },
   {
     "id": "afterlife_club",
@@ -476,7 +501,8 @@
     "tag": "legendary",
     "legendary": true,
     "satisfy": {},
-    "desc": "传奇居民招募概率 +10%"
+    "desc": "传奇居民招募概率 +10%",
+    "implemented": true
   },
   {
     "id": "arasaka_branch",
@@ -491,7 +517,8 @@
     "tag": "legendary",
     "legendary": true,
     "satisfy": {},
-    "desc": "所有企业建筑收入 ×2"
+    "desc": "所有企业建筑收入 ×2",
+    "implemented": true
   },
   {
     "id": "netwatch_hub",
@@ -506,6 +533,7 @@
     "tag": "legendary",
     "legendary": true,
     "satisfy": {},
-    "desc": "Boss 预警时间 +4h"
+    "desc": "Boss 预警时间 +4h",
+    "implemented": true
   }
 ]

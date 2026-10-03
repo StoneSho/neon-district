@@ -9,14 +9,16 @@ var _missions: VBoxContainer
 var _list: VBoxContainer
 
 func _ready() -> void:
+	clip_contents = true
+	mouse_filter = Control.MOUSE_FILTER_STOP
 	var root := UIStyle.vbox(8)
 	root.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	root.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	root.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	add_child(root)
 	_missions = UIStyle.vbox(2)
 	root.add_child(_missions)
-	var sc := ScrollContainer.new()
-	sc.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	sc.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	var sc := UIStyle.fill_scroll()
 	root.add_child(sc)
 	_list = UIStyle.vbox(8)
 	_list.size_flags_horizontal = Control.SIZE_EXPAND_FILL

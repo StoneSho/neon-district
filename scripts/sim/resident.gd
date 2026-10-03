@@ -42,6 +42,49 @@ var injured_until: int = 0
 var reward_mult: float = 1.0
 var rep_mult: float = 1.0
 var injury_mult: float = 1.0
+## Lv10 精通过的职业 id（转职后旧职业被动保留）。当前职业的被动随时生效，
+## 不进这个列表，转职时由 Game.change_job 把旧职业追加进来。
+var mastered: Array = []
+## 被动带来的移速倍率（流浪者 ×2），由 Game._refresh_passive_state 维护。
+var speed_mult: float = 1.0
+## 装备中的武器 id（阶段 4）。每人 1 件，加成见 weapons.json 的 bonus。
+var weapon_id: String = ""
+## 已安装的义体（阶段 5）：slot -> {"id": wid, "dur": 剩余耐久天数}。
+var implants: Dictionary = {}
+## 讨伐贡献（阶段 12 年度大赏用）：每次成功讨伐 Boss +1，大赏后清零。
+var boss_acc: int = 0
+## 连续不满天数（压力系统）：满意度 <35 累加，≥45 清零，满 3 天搬走。
+var unhappy_days: int = 0
+
+## 武器对某系战力的加成。
+func weapon_power(key: String) -> int:
+	var w: Dictionary = ConfigDB.weapons.get(weapon_id, {})
+	var bonus: Dictionary = w.get("bonus", {})
+	return int(bonus.get(key, 0))
+
+## 义体对某个五维属性的加成（耐久为 0 的失效义体不计）。
+func implant_bonus(stat: String) -> int:
+	var total := 0
+	for slot in implants.keys():
+		var rec: Dictionary = implants[slot]
+		if int(rec.get("dur", 0)) <= 0:
+			continue
+		var cw: Dictionary = ConfigDB.cyberware.get(String(rec.get("id", "")), {})
+		var bonus: Dictionary = cw.get("bonus", {})
+		total += int(bonus.get(stat, 0))
+	return total
+
+## 当前生效的全部被动 id：精通过的旧职业 + 当前职业。
+func passive_ids() -> Array:
+	var out: Array = mastered.duplicate()
+	var job: Dictionary = ConfigDB.jobs.get(job_id, {})
+	var p := String(job.get("passive", ""))
+	if p != "" and not out.has(p):
+		out.append(p)
+	return out
+
+func has_passive(pid: String) -> bool:
+	return passive_ids().has(pid)
 
 func injured(now: int) -> bool:
 	return now < injured_until
@@ -49,11 +92,11 @@ func injured(now: int) -> bool:
 func power(key: String) -> int:
 	match key:
 		"combat":
-			return int(stats["body"]) + int(stats["reflex"])
+			return int(stats["body"]) + implant_bonus("body") + int(stats["reflex"]) + implant_bonus("reflex")
 		"hack":
-			return int(stats["intelligence"]) + int(stats["tech"])
+			return int(stats["intelligence"]) + implant_bonus("intelligence") + int(stats["tech"]) + implant_bonus("tech")
 		"social":
-			return int(stats["cool"]) + int(stats["intelligence"])
+			return int(stats["cool"]) + implant_bonus("cool") + int(stats["intelligence"]) + implant_bonus("intelligence")
 		_:
 			return maxi(power("combat"), maxi(power("hack"), power("social")))
 
@@ -102,7 +145,16 @@ func _decay(game) -> void:
 	var scale := 0.35 if state == State.AWAY else 1.0
 	scale *= game.decay_scale()   # 住所（rest）会整体放慢衰减
 	for k in DECAY.keys():
-		needs[k] = maxf(0.0, float(needs[k]) - float(DECAY[k]) * scale)
+		# 没装义体的居民不产生义体需求（阶段 5：不强迫他们立刻去改装）。
+		if k == "cyberware" and implants.is_empty():
+			continue
+		var kscale := scale
+		# 赛博秋叶原周边娱乐衰减减半（阶段 8）。
+		if k == "fun":
+			kscale *= game.fun_decay_scale(cell)
+		var v := maxf(0.0, float(needs[k]) - float(DECAY[k]) * kscale)
+		# 莫克斯藏身处：需求下限 60（阶段 3 收尾）。
+		needs[k] = maxf(v, game.need_floor())
 
 func _decide(game) -> void:
 	var here: Vector2i = game.nearest_walkable(cell)
@@ -191,7 +243,9 @@ func _advance(game) -> void:
 		state = State.IDLE
 		return
 	var goal := Vector2(t)
-	var step_len := WALK_SPEED / float(Game.TPS)
+	# 走私通道移速加成（阶段 3 收尾）：全街 +5%/栋，封顶 +15%。
+	var step_len: float = WALK_SPEED * speed_mult * (1.0 + float(game.resident_speed_bonus())) \
+		* float(game.road_speed_mult(cell)) / float(Game.TPS)
 	if pos.distance_to(goal) <= step_len:
 		pos = goal
 		cell = t

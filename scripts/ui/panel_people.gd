@@ -8,9 +8,10 @@ var _sig := ""
 var _grid: GridContainer
 
 func _ready() -> void:
-	var sc := ScrollContainer.new()
+	clip_contents = true
+	mouse_filter = Control.MOUSE_FILTER_STOP
+	var sc := UIStyle.fill_scroll()
 	sc.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	sc.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	add_child(sc)
 	_grid = GridContainer.new()
 	_grid.columns = 2
@@ -25,7 +26,7 @@ func invalidate() -> void:
 func refresh() -> void:
 	var sig := ""
 	for r in Game.residents:
-		sig += "%d:%s:%d|" % [int(r.id), r.status_text(Game.tick), int(r.level)]
+		sig += "%d:%s:%d:%d|" % [int(r.id), r.status_text(Game.tick), int(r.level), int(r.unhappy_days)]
 		for k in ["hunger", "fun", "health", "cyberware"]:
 			sig += "%d" % int(float(r.needs[k]) / 20.0)
 	if sig == _sig:
@@ -76,6 +77,9 @@ func _card(r) -> PanelContainer:
 	if status != "闲逛":
 		var pill_col := UIStyle.DANGER if status == "受伤" else Color(0.7, 0.85, 1.0)
 		dots.add_child(UIStyle.chip(status, pill_col))
+	# 压力系统：连续不满会在 3 天后搬走，这里提前示警。
+	if int(r.unhappy_days) > 0:
+		dots.add_child(UIStyle.chip("不满 %d/3" % int(r.unhappy_days), UIStyle.DANGER))
 	for k in ["hunger", "fun", "health", "cyberware"]:
 		var dot := ColorRect.new()
 		dot.custom_minimum_size = Vector2(8, 8)

@@ -141,5 +141,137 @@
     "rep": 93,
     "hours": 6,
     "star": 5
+  },
+  {
+    "id": "heist_logistics",
+    "name": "黑入荒坂后勤网",
+    "type": "劫持",
+    "power": "hack",
+    "need": 400,
+    "pay": 1250,
+    "rep": 46,
+    "hours": 4,
+    "star": 3
+  },
+  {
+    "id": "heist_bank",
+    "name": "改写企业银行流水",
+    "type": "劫持",
+    "power": "hack",
+    "need": 600,
+    "pay": 2400,
+    "rep": 86,
+    "hours": 6,
+    "star": 5
+  },
+  {
+    "id": "clear_warehouse",
+    "name": "清剿废楼帮派据点",
+    "type": "清剿",
+    "power": "combat",
+    "need": 300,
+    "pay": 900,
+    "rep": 34,
+    "hours": 3,
+    "star": 2
+  },
+  {
+    "id": "clear_drones",
+    "name": "端掉无人机走私线",
+    "type": "清剿",
+    "power": "combat",
+    "need": 420,
+    "pay": 1350,
+    "rep": 48,
+    "hours": 4,
+    "star": 3
+  },
+  {
+    "id": "clear_armory",
+    "name": "围攻帮派装甲车库",
+    "type": "清剿",
+    "power": "combat",
+    "need": 520,
+    "pay": 1900,
+    "rep": 66,
+    "hours": 5,
+    "star": 4
+  },
+  {
+    "id": "courier_border",
+    "name": "护送芯片过封锁线",
+    "type": "快递",
+    "power": "any",
+    "need": 300,
+    "pay": 820,
+    "rep": 30,
+    "hours": 2,
+    "star": 2
+  },
+  {
+    "id": "courier_quarantine",
+    "name": "投递义体到隔离区",
+    "type": "快递",
+    "power": "any",
+    "need": 400,
+    "pay": 1150,
+    "rep": 42,
+    "hours": 3,
+    "star": 3
+  },
+  {
+    "id": "courier_proto",
+    "name": "把原型机运出城",
+    "type": "快递",
+    "power": "any",
+    "need": 500,
+    "pay": 1650,
+    "rep": 58,
+    "hours": 4,
+    "star": 4
+  },
+  {
+    "id": "sabotage_server",
+    "name": "烧掉对手的服务器",
+    "type": "破坏",
+    "power": "hack",
+    "need": 300,
+    "pay": 950,
+    "rep": 38,
+    "hours": 3,
+    "star": 2
+  },
+  {
+    "id": "sabotage_logistics",
+    "name": "炸毁企业物流中心",
+    "type": "破坏",
+    "power": "hack",
+    "need": 430,
+    "pay": 1500,
+    "rep": 54,
+    "hours": 4,
+    "star": 3
+  },
+  {
+    "id": "extract_witness",
+    "name": "把证人带出审讯室",
+    "type": "提取",
+    "power": "social",
+    "need": 280,
+    "pay": 880,
+    "rep": 32,
+    "hours": 3,
+    "star": 2
+  },
+  {
+    "id": "extract_legend",
+    "name": "从黑狱捞出传奇黑客",
+    "type": "提取",
+    "power": "social",
+    "need": 500,
+    "pay": 1800,
+    "rep": 64,
+    "hours": 5,
+    "star": 4
   }
 ]

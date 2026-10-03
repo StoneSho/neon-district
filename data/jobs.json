@@ -1,8 +1,18 @@
 [
-  { "id": "street_samurai", "name": "街头武士", "power": "combat", "bias": { "body": 10, "reflex": 10 }, "injury": 1.0, "reward": 1.0, "rep": 1.0, "color": "#ff5a6a" },
-  { "id": "solo", "name": "独狼", "power": "combat", "bias": { "body": 8, "cool": 6 }, "injury": 0.65, "reward": 1.0, "rep": 1.0, "color": "#ffb057" },
-  { "id": "netrunner", "name": "网络黑客", "power": "hack", "bias": { "intelligence": 10, "tech": 10 }, "injury": 1.0, "reward": 1.0, "rep": 1.0, "color": "#3ee0ff" },
-  { "id": "techie", "name": "技术专家", "power": "hack", "bias": { "tech": 10, "body": 4 }, "injury": 1.0, "reward": 1.0, "rep": 1.0, "color": "#7dffb0" },
-  { "id": "fixer", "name": "中间人", "power": "social", "bias": { "cool": 10, "intelligence": 6 }, "injury": 1.0, "reward": 1.15, "rep": 1.0, "color": "#d08bff" },
-  { "id": "media", "name": "媒体人", "power": "social", "bias": { "cool": 8, "intelligence": 8 }, "injury": 1.0, "reward": 1.0, "rep": 1.25, "color": "#ffd36a" }
+  { "id": "street_samurai", "name": "街头武士", "power": "combat", "bias": { "body": 10, "reflex": 10 }, "injury": 1.0, "reward": 1.0, "rep": 1.0, "color": "#ff5a6a", "sprite": "street_samurai" },
+  { "id": "solo", "name": "独狼", "power": "combat", "bias": { "body": 8, "cool": 6 }, "injury": 0.65, "reward": 1.0, "rep": 1.0, "color": "#ffb057", "sprite": "solo" },
+  { "id": "netrunner", "name": "网络黑客", "power": "hack", "bias": { "intelligence": 10, "tech": 10 }, "injury": 1.0, "reward": 1.0, "rep": 1.0, "color": "#3ee0ff", "sprite": "netrunner", "passive": "heist_bonus" },
+  { "id": "techie", "name": "技术专家", "power": "hack", "bias": { "tech": 10, "body": 4 }, "injury": 1.0, "reward": 1.0, "rep": 1.0, "color": "#7dffb0", "sprite": "techie", "passive": "fast_sabotage" },
+  { "id": "fixer", "name": "中间人", "power": "social", "bias": { "cool": 10, "intelligence": 6 }, "injury": 1.0, "reward": 1.15, "rep": 1.0, "color": "#d08bff", "sprite": "fixer" },
+  { "id": "media", "name": "媒体人", "power": "social", "bias": { "cool": 8, "intelligence": 8 }, "injury": 1.0, "reward": 1.0, "rep": 1.25, "color": "#ffd36a", "sprite": "media" },
+  { "id": "merc", "name": "佣兵", "power": "combat", "bias": { "body": 6, "reflex": 6 }, "injury": 0.9, "reward": 1.0, "rep": 1.0, "color": "#ff7a45", "sprite": "solo", "passive": "allround" },
+  { "id": "bounty_hunter", "name": "赏金猎人", "power": "combat", "bias": { "reflex": 10, "body": 6 }, "injury": 0.85, "reward": 1.0, "rep": 1.0, "color": "#ff9f3d", "sprite": "street_samurai", "passive": "extract_bonus" },
+  { "id": "cyber_ninja", "name": "赛博忍者", "power": "hack", "bias": { "reflex": 10, "tech": 6 }, "injury": 0.7, "reward": 1.0, "rep": 1.0, "color": "#2ec9a0", "sprite": "media", "passive": "ninja" },
+  { "id": "detective", "name": "缉查队员", "power": "social", "bias": { "intelligence": 10, "reflex": 4 }, "injury": 1.0, "reward": 1.0, "rep": 1.0, "color": "#9db8ff", "sprite": "fixer", "passive": "boss_hunter" },
+  { "id": "ripperdoc", "name": "义体医生", "power": "hack", "bias": { "tech": 10, "intelligence": 4 }, "injury": 0.8, "reward": 1.0, "rep": 1.0, "color": "#b5ff5e", "sprite": "techie", "passive": "field_medic" },
+  { "id": "gene_editor", "name": "基因编辑者", "power": "social", "bias": { "intelligence": 8, "body": 4 }, "injury": 1.0, "reward": 1.0, "rep": 1.0, "color": "#c9ff7a", "sprite": "media", "passive": "genetic" },
+  { "id": "mech_pilot", "name": "机甲驾驶员", "power": "combat", "bias": { "body": 10, "tech": 4 }, "injury": 0.9, "reward": 1.0, "rep": 1.0, "color": "#ff8f5a", "sprite": "solo", "passive": "mech" },
+  { "id": "info_broker", "name": "情报贩子", "power": "social", "bias": { "cool": 8, "intelligence": 4 }, "injury": 1.0, "reward": 1.0, "rep": 1.0, "color": "#ffb3d9", "sprite": "fixer", "passive": "intel" },
+  { "id": "corp", "name": "公司人", "power": "social", "bias": { "intelligence": 8, "cool": 6 }, "injury": 1.05, "reward": 1.1, "rep": 1.0, "color": "#8fd3ff", "sprite": "media", "passive": "corporate" },
+  { "id": "nomad", "name": "流浪者", "power": "combat", "bias": { "body": 6, "reflex": 8 }, "injury": 0.75, "reward": 1.0, "rep": 1.0, "color": "#d9c08a", "sprite": "street_samurai", "passive": "nomad" }
 ]

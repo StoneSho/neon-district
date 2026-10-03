@@ -239,3 +239,11 @@ static func vbox(sep: int = 8) -> VBoxContainer:
 	v.add_theme_constant_override("separation", sep)
 	v.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	return v
+
+static func fill_scroll() -> ScrollContainer:
+	var sc := ScrollContainer.new()
+	sc.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	sc.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	sc.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_SHOW_NEVER
+	sc.clip_contents = true
+	return sc

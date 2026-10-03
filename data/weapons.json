@@ -1,0 +1,13 @@
+[
+  { "id": "knife", "name": "战斗刀", "rarity": 1, "price": 300, "star": 1, "bonus": { "combat": 5 } },
+  { "id": "pistol_mk1", "name": "手枪 Mk1", "rarity": 1, "price": 500, "star": 1, "bonus": { "combat": 8 } },
+  { "id": "smg_mk1", "name": "冲锋枪 Mk1", "rarity": 2, "price": 800, "star": 2, "bonus": { "combat": 12 } },
+  { "id": "stun_baton", "name": "电击警棍", "rarity": 2, "price": 600, "star": 2, "bonus": { "combat": 6, "hack": 4 } },
+  { "id": "combat_shotgun", "name": "战斗霰弹枪", "rarity": 2, "price": 1000, "star": 3, "bonus": { "combat": 15 } },
+  { "id": "tech_pistol", "name": "科技手枪", "rarity": 3, "price": 1200, "star": 4, "bonus": { "combat": 10, "hack": 8 } },
+  { "id": "precision_rifle", "name": "精准步枪", "rarity": 3, "price": 1500, "star": 4, "bonus": { "combat": 18 } },
+  { "id": "heavy_shotgun", "name": "重型霰弹枪", "rarity": 3, "price": 1800, "star": 5, "bonus": { "combat": 20 } },
+  { "id": "assault_rifle", "name": "突击步枪", "rarity": 3, "price": 1600, "star": 5, "bonus": { "combat": 16 } },
+  { "id": "smart_rifle", "name": "智能步枪", "rarity": 4, "price": 2500, "star": 7, "bonus": { "combat": 15, "hack": 15 } },
+  { "id": "legendary_katana", "name": "传奇武士刀", "rarity": 5, "price": 5000, "star": 9, "bonus": { "combat": 30, "social": 10 } }
+]

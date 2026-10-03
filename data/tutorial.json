@@ -1,0 +1,14 @@
+{
+  "_comment": "新手引导目标链：按顺序完成，check 由 Game._goal_value() 求值。改文案/顺序只需改这张表。",
+  "steps": [
+    { "id": "build1", "text": "建造第一栋建筑", "hint": "切到「建造」页选一栋，再到街上点格子放下", "check": "buildings", "n": 1 },
+    { "id": "earn", "text": "让第一笔生意开张", "hint": "居民会自己进店消费，等一会儿就有收入", "check": "visits", "n": 1 },
+    { "id": "build3", "text": "建成 3 栋建筑", "hint": "面馆旁边放酒吧，能凑出相性加成", "check": "buildings", "n": 3 },
+    { "id": "combo", "text": "凑出第一组相性", "hint": "两条街内的面馆 + 酒吧贴邻即可激活「街头夜宵」", "check": "combos", "n": 1 },
+    { "id": "gig1", "text": "完成第一条委托", "hint": "委托页选一条，点「派人」出发", "check": "gigs", "n": 1 },
+    { "id": "sat", "text": "把平均满意度拉回 60", "hint": "补上吃的、玩的、医疗；满意度低于 35 连续 3 天会有人搬走", "check": "satisfaction", "n": 60 },
+    { "id": "boss1", "text": "打赢第一只赛博精神病", "hint": "威胁页里挑战力够的人出战", "check": "bosses", "n": 1 },
+    { "id": "star2", "text": "升到 2 星", "hint": "完成委托与讨伐都能涨声望，声望够了就升星", "check": "star", "n": 2 },
+    { "id": "expand1", "text": "征地扩张一次", "hint": "升星后土地上限提高，去「扩张」页花钱征地，再把废墟清掉就能盖楼", "check": "expansions", "n": 1 }
+  ]
+}

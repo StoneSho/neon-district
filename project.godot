@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="霓虹街区 NeonDistrict"
+config/name="霓虹街区 (1)"
 config/description="赛博朋克都市经营模拟 demo：建造、委托、声望、赛博精神病。"
 run/main_scene="res://scenes/main.tscn"
 config/features=PackedStringArray("4.7", "GL Compatibility")
@@ -21,7 +21,6 @@ config/icon="res://icon.svg"
 EventBus="*res://scripts/core/event_bus.gd"
 ConfigDB="*res://scripts/core/config_db.gd"
 Game="*res://scripts/core/game.gd"
-Music="*res://scripts/core/music.gd"
 _mcp_game_helper="*res://addons/godot_ai/runtime/game_helper.gd"
 
 [display]

@@ -1,0 +1,87 @@
+{
+  "combos": [
+    {
+      "id": "street_supper",
+      "name": "街头夜宵",
+      "fids": ["neon_noodle", "neon_bar"],
+      "income_mult": 1.3,
+      "desc": "面馆 + 酒吧贴邻：组合内收入 +30%"
+    },
+    {
+      "id": "night_market",
+      "name": "义体夜市",
+      "fids": ["neon_noodle", "neon_bar", "used_cyber_stall"],
+      "income_mult": 1.5,
+      "desc": "面馆 + 酒吧 + 二手义体摊贴邻：组合内收入 +50%"
+    },
+    {
+      "id": "akihabara",
+      "name": "赛博秋叶原",
+      "fids": ["neon_noodle", "used_cyber_stall", "holo_theater"],
+      "income_mult": 2.5,
+      "fun_decay": 0.5,
+      "desc": "面馆 + 二手义体摊 + 全息影院贴邻：收入 +150%，周边娱乐衰减减半"
+    },
+    {
+      "id": "outlaw",
+      "name": "法外狂徒",
+      "fids": ["weapon_shop", "black_market", "underground_clinic"],
+      "income_mult": 1.0,
+      "weapon_discount": 0.2,
+      "boss_power_mult": 1.15,
+      "desc": "武器店 + 黑市 + 地下诊所贴邻：武器 -20%，Boss 战战力 +15%（武器店与黑市待美术后实装）"
+    },
+    {
+      "id": "matrix",
+      "name": "黑客帝国",
+      "fids": ["netrunner_den", "data_broker", "secret_server"],
+      "income_mult": 1.0,
+      "tech_gig_faster": 0.3,
+      "desc": "黑客巢穴 + 数据交易所 + 秘密服务器贴邻：科技类委托耗时 -30%"
+    }
+  ],
+  "theme_jobs": {
+    "underground": {
+      "netrunner": ["tech", "intelligence"],
+      "ripperdoc": ["tech", "intelligence"],
+      "techie": ["tech", "intelligence"],
+      "cyber_ninja": ["tech", "intelligence"],
+      "gene_editor": ["tech", "intelligence"]
+    },
+    "street": {
+      "street_samurai": ["reflex", "body"],
+      "nomad": ["reflex", "body"],
+      "media": ["reflex", "body"],
+      "solo": ["reflex", "body"],
+      "merc": ["reflex", "body"],
+      "bounty_hunter": ["reflex", "body"],
+      "mech_pilot": ["reflex", "body"],
+      "corp": ["intelligence", "cool"]
+    },
+    "gang": {
+      "solo": ["body", "cool"],
+      "street_samurai": ["body", "cool"],
+      "fixer": ["body", "cool"],
+      "merc": ["body", "cool"],
+      "bounty_hunter": ["body", "cool"],
+      "mech_pilot": ["body", "cool"],
+      "detective": ["intelligence", "cool"]
+    },
+    "corporate": {
+      "fixer": ["intelligence", "cool"],
+      "techie": ["intelligence", "cool"],
+      "ripperdoc": ["intelligence", "cool"],
+      "detective": ["intelligence", "cool"],
+      "gene_editor": ["intelligence", "cool"],
+      "info_broker": ["intelligence", "cool"],
+      "corp": ["intelligence", "cool"]
+    },
+    "neon": {
+      "media": ["cool", "reflex"],
+      "nomad": ["cool", "reflex"],
+      "netrunner": ["cool", "reflex"],
+      "cyber_ninja": ["cool", "reflex"],
+      "info_broker": ["cool", "reflex"]
+    }
+  }
+}

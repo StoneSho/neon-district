@@ -13,6 +13,19 @@ var jobs: Dictionary = {}
 var job_list: Array = []
 var gig_templates: Array = []
 var bosses: Array = []
+var weapons: Dictionary = {}
+var weapon_list: Array = []
+var cyberware: Dictionary = {}
+var cyberware_list: Array = []
+var research_lines: Dictionary = {}
+var research_list: Array = []
+var combos: Array = []
+var theme_jobs: Dictionary = {}
+var start_town: Array = []
+## 新手引导目标链（tutorial.json）。
+var tutorial_steps: Array = []
+## 成就表（achievements.json）。
+var achievements: Array = []
 
 ## 底栏分组顺序。不在这里的主题排在最后。
 const THEME_ORDER: PackedStringArray = [
@@ -56,6 +69,51 @@ func _ready() -> void:
 			b["pay"] = int(b["pay"])
 			b["rep"] = int(b["rep"])
 			bosses.append(b)
+	var warr = _load("res://data/weapons.json")
+	if warr is Array:
+		for w in warr:
+			w["price"] = int(w["price"])
+			w["star"] = int(w.get("star", 1))
+			w["rarity"] = int(w.get("rarity", 1))
+			weapons[String(w["id"])] = w
+			weapon_list.append(w)
+	var carr = _load("res://data/cyberware.json")
+	if carr is Array:
+		for c in carr:
+			c["price"] = int(c["price"])
+			c["star"] = int(c.get("star", 1))
+			c["rarity"] = int(c.get("rarity", 1))
+			c["dura"] = int(c.get("dura", 6))
+			cyberware[String(c["id"])] = c
+			cyberware_list.append(c)
+	var rarr = _load("res://data/research.json")
+	if rarr is Array:
+		for rl in rarr:
+			rl["cost"] = int(rl["cost"])
+			rl["hours"] = int(rl["hours"])
+			research_lines[String(rl["id"])] = rl
+			research_list.append(rl)
+	var cobj = _load("res://data/combos.json")
+	if cobj is Dictionary:
+		for c in cobj.get("combos", []):
+			combos.append(c)
+		theme_jobs = cobj.get("theme_jobs", {})
+	var tobj = _load("res://data/start_town.json")
+	if tobj is Dictionary:
+		for t in tobj.get("buildings", []):
+			start_town.append(t)
+	var tut = _load("res://data/tutorial.json")
+	if tut is Dictionary:
+		for st in tut.get("steps", []):
+			st["n"] = float(st.get("n", 1))
+			tutorial_steps.append(st)
+	var ach = _load("res://data/achievements.json")
+	if ach is Dictionary:
+		for a in ach.get("achievements", []):
+			a["n"] = float(a.get("n", 1))
+			a["money"] = int(a.get("money", 0))
+			a["rep"] = int(a.get("rep", 0))
+			achievements.append(a)
 
 func _load(path: String) -> Variant:
 	if not FileAccess.file_exists(path):

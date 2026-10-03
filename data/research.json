@@ -1,0 +1,38 @@
+[
+  {
+    "id": "cyberware_tech",
+    "name": "义体改装技术",
+    "prereq": "cyberware_shop",
+    "cost": 900,
+    "hours": 5,
+    "unlocks": "used_cyber_stall",
+    "desc": "解锁后可从二手义体摊先买 ★★"
+  },
+  {
+    "id": "neural_protocol",
+    "name": "神经接口协议",
+    "prereq": "secret_server",
+    "cost": 700,
+    "hours": 4,
+    "unlocks": "data_broker",
+    "desc": "数据交易所提前 1 星可建"
+  },
+  {
+    "id": "corp_encryption",
+    "name": "企业加密破解",
+    "prereq": "data_broker",
+    "cost": 1100,
+    "hours": 6,
+    "unlocks": "luxury_apartment",
+    "desc": "豪华公寓提前 1 星可建"
+  },
+  {
+    "id": "underground_engineering",
+    "name": "地下结构工程",
+    "prereq": "underground_clinic",
+    "cost": 500,
+    "hours": 3,
+    "unlocks": "holo_theater",
+    "desc": "全息影院提前 1 星可建"
+  }
+]
